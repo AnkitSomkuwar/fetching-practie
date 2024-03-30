@@ -11,12 +11,20 @@ class BlogList extends Component {
   getBlogData = async () => {
     const response = await fetch('https://apis.ccbp.in/blogs')
     const data = await response.json()
+     this.setState({blogData: data.blogs}) 
     console.log(data)
   }
 
   render() {
     const {blogData} = this.state
-    return <div className="blog-list-container"></div>
+    return <div className="blog-list-container">
+        {blogData.map(blog => (
+          <div key={blog.id} className="blog-item">
+            <h2>{blog.title}</h2>
+            <p>{blog.content}</p>
+          </div>
+        ))}
+      </div>
   }
 }
 
